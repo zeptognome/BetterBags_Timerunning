@@ -8,7 +8,8 @@ BetterBags_Timerunning is a plugin for Better Bags that adds categories for Time
 
 Categories are created for each of the gem types as well as flasks, class utility scrolls, and class buff scrolls. 
 
-Currently Supported: WoW Remix : Mist of Pandaria
+Currently Supported:
+WoW Remix : Mist of Pandaria
 https://www.wowhead.com/guide/dragonflight-10-2-7-patch-overview#wow-remix
 
 Available via Curseforge: https://www.curseforge.com/wow/addons/betterbags-timerunning
