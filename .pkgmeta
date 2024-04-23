@@ -1,0 +1,12 @@
+package-as: BetterBags_Timerunning
+
+ignore:
+  - annotations.lua
+  - README.md
+  - .github
+  - .packager
+  - .release
+  - .badges
+
+required-dependencies:
+  - better-bags
