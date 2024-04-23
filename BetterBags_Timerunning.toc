@@ -14,6 +14,6 @@
 ## X-Category: Bags & Inventory
 ## X-License: MIT
 ## X-Curse-Project-ID: 1007763
-## X-Wago-ID: ?
+## X-Wago-ID: XKq9mjKy
 
 BetterBags_Timerunning.lua
