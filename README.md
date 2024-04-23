@@ -13,5 +13,6 @@ WoW Remix : Mist of Pandaria
 https://www.wowhead.com/guide/dragonflight-10-2-7-patch-overview#wow-remix
 
 Available via Curseforge: https://www.curseforge.com/wow/addons/betterbags-timerunning
+
 Available via Wago: https://addons.wago.io/addons/betterbags-timerunning
 
