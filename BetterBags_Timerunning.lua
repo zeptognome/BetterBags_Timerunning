@@ -7,13 +7,25 @@ local categories = addon:GetModule('Categories')
 ---@class Localization: AceModule
 local L = addon:GetModule('Localization')
 
-local MetaCategoryName = "Gem - Head"
-local PrismaticCategoryName = "Gem - Chest, Pants"
-local TinkersCategoryName = "Gem - Shoulder, Wrist, Hand, Belt"
-local CogwheelsCategoryName = "Gem - Feet"
-local BuffScrollsCategoryName = "Class Buffs"
-local UtilityCategoryName = "Timerunning Class Utilities"
-local FlasksCategoryName = "Timerunning Flasks"
+local config = addon:GetModule('Config')
+
+local metaCategoryName = "Gem - Head"
+local prismaticCategoryName = "Gem - Chest, Pants"
+local tinkerCategoryName = "Gem - Shoulder, Wrist, Hand, Belt"
+local cogwheelCategoryName = "Gem - Feet"
+local buffScrollsCategoryName = "Class Buffs"
+local utilityCategoryName = "Timerunning Class Utilities"
+local flasksCategoryName = "Timerunning Flasks"
+
+local metaCategoryEnabled = true
+local prismaticCategoryEnabled = true
+local tinkerCategoryEnabled = true
+local cogwheelCategoryEnabled = true
+local buffScrollsCategoryEnabled = true
+local utilityCategoryEnabled = true
+local flasksCategoryEnabled = true
+
+local pendingChanges = false
 
 local MetaGems = {
   220211, -- Precipice of Madness
@@ -26,7 +38,7 @@ local MetaGems = {
   221982, -- Bulwark of the Black Ox
   219386, -- Locus of Power
   221977, -- Funeral Pyre
-  216974, -- Morphing Elements
+--  216974, -- Morphing Elements  -- not implemented on ptr
   219878, -- Tireless Spirit
 }
 
@@ -145,20 +157,170 @@ local Flasks = {
 }
 
 local allItems = {
-  {MetaCategoryName, MetaGems},
-  {PrismaticCategoryName, Prismatic},
-  {TinkersCategoryName, Tinkers},
-  {CogwheelsCategoryName, Cogwheels},
-  {BuffScrollsCategoryName, BuffScrolls},
-  {UtilityCategoryName, Utility},
-  {FlasksCategoryName, Flasks},
+  {metaCategoryName, MetaGems},
+  {prismaticCategoryName, Prismatic},
+  {tinkerCategoryName, Tinkers},
+  {cogwheelCategoryName, Cogwheels},
+  {buffScrollsCategoryName, BuffScrolls},
+  {utilityCategoryName, Utility},
+  {flasksCategoryName, Flasks},
 }
 
 for _, itemList in pairs(allItems) do
   local category = itemList[1]
-  for _, ItemID in pairs(itemList[2]) do
-    if C_Item.GetItemInfoInstant(ItemID) then
-      categories:AddItemToCategory(ItemID, category)
+  for _, itemID in pairs(itemList[2]) do
+    if C_Item.GetItemInfoInstant(itemID) then
+      categories:AddItemToCategory(itemID, category)
     end
   end
 end
+
+
+local timerunningConfigOptions = {
+  createCategory = {
+    name = L:G("Timerunning"),
+    type = "group",
+    inline = true,
+    args = {
+      helpText = {
+        type = "description",
+        name = L:G("Disable categories here to prevent the plugin from claiming items if you want to create your own.\nAutomatic category names can be changed here."),
+        order = 0,
+      },
+      header = {
+        type = "header",
+        order = 1,
+        name = "",
+
+      },
+      Options = {
+        type = "group",
+        name = L:G("Options"),
+        order = 2,
+        args = {
+          metaName = {
+            type = "input",
+            name = "Meta Gems label",
+            order = 0,
+            get = function() return metaCategoryName end,
+            set = function(_, value) metaCategoryName = value print (value) end,
+          },
+          metaEnabled = {
+            type = "toggle",
+            name = "Enabled",
+            desc = "Meta Gems category enabled",
+            order = 1,
+            get = function() return metaCategoryEnabled end,
+            set = function(_, value) metaCategoryEnabled = value print (value) end,
+          },
+          PrismaticName = {
+            type = "input",
+            name = "Prismatic Gems label",
+            order = 2,
+            get = function() return prismaticCategoryName end,
+            set = function(_, value) prismaticCategoryName = value end,
+          },
+          PrismaticEnabled = {
+            type = "toggle",
+            name = "Enabled",
+            desc = "Prismatic Gems category enabled",
+            order = 3,
+            get = function() return prismaticCategoryEnabled end,
+            set = function(_, value) prismaticCategoryEnabled = value end,
+          },
+          TinkerName = {
+            type = "input",
+            name = "Tinker Gems label",
+            order = 4,
+            get = function() return tinkerCategoryName end,
+            set = function(_, value) tinkerCategoryName = value end,
+          },
+          TinkerEnabled = {
+            type = "toggle",
+            name = "Enabled",
+            desc = "Tinker Gems category enabled",
+            order = 5,
+            get = function() return tinkerCategoryEnabled end,
+            set = function(_, value) tinkerCategoryEnabled = value end,
+          },
+          CogwheelName = {
+            type = "input",
+            name = "Cogwheel Gems label",
+            order = 6,
+            get = function() return cogwheelCategoryName end,
+            set = function(_, value) cogwheelCategoryName = value end,
+          },
+          CogwheelEnabled = {
+            type = "toggle",
+            name = "Enabled",
+            desc = "Cogwheel Gems category enabled",
+            order = 7,
+            get = function() return cogwheelCategoryEnabled end,
+            set = function(_, value) cogwheelCategoryEnabled = value end,
+          },
+          BuffScrollsName = {
+            type = "input",
+            name = "BuffScrolls label",
+            order = 8,
+            get = function() return buffScrollsCategoryName end,
+            set = function(_, value) buffScrollsCategoryName = value end,
+          },
+          BuffScrollsEnabled = {
+            type = "toggle",
+            name = "Enabled",
+            desc = "Class Buff category enabled",
+            order = 9,
+            get = function() return buffScrollsCategoryEnabled end,
+            set = function(_, value) buffScrollsCategoryEnabled = value end,
+          },
+          utilityName = {
+            type = "input",
+            name = "Timerunning utility label",
+            order = 10,
+            get = function() return utilityCategoryName end,
+            set = function(_, value) utilityCategoryName = value end,
+          },
+          utilityEnabled = {
+            type = "toggle",
+            name = "Enabled",
+            desc = "Utility category enabled",
+            order = 11,
+            get = function() return utilityCategoryEnabled end,
+            set = function(_, value) utilityCategoryEnabled = value end,
+          },
+          flasksName = {
+            type = "input",
+            name = "Flasks label",
+            order = 12,
+            get = function() return flasksCategoryName end,
+            set = function(_, value) flasksCategoryName = value end,
+          },
+          Enabled = {
+            type = "toggle",
+            name = "Enabled",
+            desc = "Flasks category enabled",
+            order = 13,
+            get = function() return flasksCategoryEnabled end,
+            set = function(_, value) flasksCategoryEnabled = value end,
+          },
+        },
+      },
+      wipe = {
+        type = "execute",
+        name = L:G("Apply Changes"),
+        order = 3,
+        disabled = pendingChanges,
+        func = function() categories:ReprocessAllItems() end,
+      },
+
+    }
+  }
+}
+
+--[[
+if (config.AddPluginConfig) then
+  config:AddPluginConfig("Timerunning", timerunningConfigOptions)
+else
+  print ("BetterBags_Timerunning NOT loaded. Betterbags Plugin API Incompatible. Update to BetterBags v0.1.27-5 alpha or newer")
+end
+]]--
