@@ -89,7 +89,7 @@ local Prismatic = {
   210715, -- Chipped Masterful Amethyst
   210681, -- Chipped Quick Topaz
   220367, -- Chipped Stalwart Pearl
-  211109, -- Chipped Sustaining Emerald
+--  211109, -- Chipped Sustaining Emerald
   210716, -- Chipped Swift Opal
   220371, -- Chipped Versatile Diamond
   211123, -- Deadly Sapphire
@@ -98,7 +98,7 @@ local Prismatic = {
   216640, -- Flawed Masterful Amethyst
   216643, -- Flawed Quick Topaz
   220368, -- Flawed Stalwart Pearl
-  216642, -- Flawed Sustaining Emerald
+--  216642, -- Flawed Sustaining Emerald
   216639, -- Flawed Swift Opal
   220372, -- Flawed Versatile Diamond
   210718, -- Hungering Ruby
@@ -108,12 +108,12 @@ local Prismatic = {
   211108, -- Perfect Masterful Amethyst
   211110, -- Perfect Quick Topaz
   220369, -- Perfect Stalwart Pearl
-  211105, -- Perfect Sustaining Emerald
+--  211105, -- Perfect Sustaining Emerald
   211101, -- Perfect Swift Opal
   220373, -- Perfect Versatile Diamond
   211107, -- Quick Topaz
   220370, -- Stalwart Pearl
-  211125, -- Sustaining Emerald
+--  211125, -- Sustaining Emerald
   211124, -- Swift Opal
   220374, -- Versatile Diamond
 }
@@ -163,6 +163,15 @@ local Threads = {
   226144, -- Lessor Spool of Eternal Thread
   226143, -- Spool of Eternal Thread
   226142, -- Greater Spool of Eternal Thread
+  219266, -- Perpetual Thread of Stamina
+  219268, -- Perpetual Thread of Haste
+  219270, -- Perpetual Thread of Leech
+  219272, -- Perpetual Thread of Versatility
+  219265, -- Perpetual Thread of Power
+  219267, -- Perpetual Thread of Critical Strike
+  219269, -- Perpetual Thread of Speed
+  219271, -- Perpetual Thread of Mastery
+  219273, -- Perpetual Thread of Experience
 }
 
 local allItems = {
