@@ -10,12 +10,13 @@ local L = addon:GetModule('Localization')
 local config = addon:GetModule('Config')
 
 local metaCategoryName = "Gem - Head"
-local prismaticCategoryName = "Gem - Chest, Pants"
+local prismaticCategoryName = "Gem - Chest, Pants, Jewelry"
 local tinkerCategoryName = "Gem - Shoulder, Wrist, Hand, Belt"
 local cogwheelCategoryName = "Gem - Feet"
 local buffScrollsCategoryName = "Class Buffs"
 local utilityCategoryName = "Timerunning Class Utilities"
 local flasksCategoryName = "Timerunning Flasks"
+local threadsCategoryName = "Threads"
 
 local metaCategoryEnabled = true
 local prismaticCategoryEnabled = true
@@ -24,6 +25,7 @@ local cogwheelCategoryEnabled = true
 local buffScrollsCategoryEnabled = true
 local utilityCategoryEnabled = true
 local flasksCategoryEnabled = true
+local threadsCategoryEnabled = true
 
 local pendingChanges = false
 
@@ -156,6 +158,13 @@ local Flasks = {
   217905, -- Timerunner's Draught of Health
 }
 
+local Threads = {
+  226145, -- Minor Spool of Eternal Thread
+  226144, -- Lessor Spool of Eternal Thread
+  226143, -- Spool of Eternal Thread
+  226142, -- Greater Spool of Eternal Thread
+}
+
 local allItems = {
   {metaCategoryName, MetaGems},
   {prismaticCategoryName, Prismatic},
@@ -164,6 +173,8 @@ local allItems = {
   {buffScrollsCategoryName, BuffScrolls},
   {utilityCategoryName, Utility},
   {flasksCategoryName, Flasks},
+  {threadsCategoryName, Threads},
+
 }
 
 for _, itemList in pairs(allItems) do
@@ -295,13 +306,28 @@ local timerunningConfigOptions = {
             get = function() return flasksCategoryName end,
             set = function(_, value) flasksCategoryName = value end,
           },
-          Enabled = {
+          flasksEnabled = {
             type = "toggle",
             name = "Enabled",
             desc = "Flasks category enabled",
             order = 13,
             get = function() return flasksCategoryEnabled end,
             set = function(_, value) flasksCategoryEnabled = value end,
+          },
+          threadsName = {
+            type = "input",
+            name = "Threads label",
+            order = 14,
+            get = function() return threadsCategoryName end,
+            set = function(_, value) threadsCategoryName = value end,
+          },
+          threadsEnabled = {
+            type = "toggle",
+            name = "Enabled",
+            desc = "Threads category enabled",
+            order = 15,
+            get = function() return threadsCategoryEnabled end,
+            set = function(_, value) threadsCategoryEnabled = value end,
           },
         },
       },
