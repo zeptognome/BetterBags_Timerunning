@@ -7,6 +7,7 @@ local categories = addon:GetModule('Categories')
 ---@class Localization: AceModule
 local L = addon:GetModule('Localization')
 
+---@class Config: AceModule
 local config = addon:GetModule('Config')
 
 local metaCategoryName = "Gem - Head"
@@ -40,7 +41,6 @@ local MetaGems = {
   221982, -- Bulwark of the Black Ox
   219386, -- Locus of Power
   221977, -- Funeral Pyre
---  216974, -- Morphing Elements  -- not implemented on ptr
   219878, -- Tireless Spirit
 }
 
@@ -89,7 +89,6 @@ local Prismatic = {
   210715, -- Chipped Masterful Amethyst
   210681, -- Chipped Quick Topaz
   220367, -- Chipped Stalwart Pearl
---  211109, -- Chipped Sustaining Emerald
   210716, -- Chipped Swift Opal
   220371, -- Chipped Versatile Diamond
   211123, -- Deadly Sapphire
@@ -98,7 +97,6 @@ local Prismatic = {
   216640, -- Flawed Masterful Amethyst
   216643, -- Flawed Quick Topaz
   220368, -- Flawed Stalwart Pearl
---  216642, -- Flawed Sustaining Emerald
   216639, -- Flawed Swift Opal
   220372, -- Flawed Versatile Diamond
   210718, -- Hungering Ruby
@@ -108,12 +106,10 @@ local Prismatic = {
   211108, -- Perfect Masterful Amethyst
   211110, -- Perfect Quick Topaz
   220369, -- Perfect Stalwart Pearl
---  211105, -- Perfect Sustaining Emerald
   211101, -- Perfect Swift Opal
   220373, -- Perfect Versatile Diamond
   211107, -- Quick Topaz
   220370, -- Stalwart Pearl
---  211125, -- Sustaining Emerald
   211124, -- Swift Opal
   220374, -- Versatile Diamond
 }
@@ -172,6 +168,11 @@ local Threads = {
   219269, -- Perpetual Thread of Speed
   219271, -- Perpetual Thread of Mastery
   219273, -- Perpetual Thread of Experience
+  219277, -- Infinite Thread of Haste
+  219279, -- Infinite Thread of Leech
+  219278, -- Infinite Thread of Speed
+  219275, -- Infinite Thread of Stamina
+  219281, -- Infinite Thread of Versatility
 }
 
 local allItems = {
@@ -183,7 +184,6 @@ local allItems = {
   {utilityCategoryName, Utility},
   {flasksCategoryName, Flasks},
   {threadsCategoryName, Threads},
-
 }
 
 for _, itemList in pairs(allItems) do
@@ -194,7 +194,6 @@ for _, itemList in pairs(allItems) do
     end
   end
 end
-
 
 local timerunningConfigOptions = {
   createCategory = {
@@ -352,10 +351,6 @@ local timerunningConfigOptions = {
   }
 }
 
---[[
-if (config.AddPluginConfig) then
+if (config.AddPluginConfig) and false then -- disabled for now
   config:AddPluginConfig("Timerunning", timerunningConfigOptions)
-else
-  print ("BetterBags_Timerunning NOT loaded. Betterbags Plugin API Incompatible. Update to BetterBags v0.1.27-5 alpha or newer")
 end
-]]--

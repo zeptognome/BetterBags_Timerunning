@@ -1,4 +1,4 @@
-## Interface: 100207
+## Interface: 100207,110000,110002
 
 ## Title: BetterBags_Timerunning
 ## Notes: Adds categories for Timerunning items to BetterBags.
